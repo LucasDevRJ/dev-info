@@ -18,6 +18,11 @@ public class DesenvolvedorDao {
 		this.em.persist(desenvolvedor);
 	}
 	
+	public void excluir(Desenvolvedor desenvolvedor) {
+		desenvolvedor = this.em.merge(desenvolvedor);
+		this.em.remove(desenvolvedor);
+	}
+	
 	public List<Desenvolvedor> listar() {
 		String jpql = "SELECT d FROM Desenvolvedor d";
 		return this.em.createQuery(jpql, Desenvolvedor.class).getResultList();

@@ -11,9 +11,44 @@ import com.github.lucasdevrj.util.JPAUtil;
 
 public class Principal {
 	
+	private static Scanner entrada = new Scanner(System.in);
+	
 	public static void main(String[] args) {
-		cadastrarDesenvolvedor();
-		listarDesenvolvedores();
+		exibirMenu();
+	}
+
+	private static void exibirMenu() {
+		System.out.println("1 - Cadastrar Desenvolvedor");
+		System.out.println("2 - Listar Desenvolvedores");
+		System.out.println("3 - Excluir Todos Desenvolvedores");
+		
+		System.out.print("Digite sua opção: ");
+		int opcao = entrada.nextInt();
+		
+		switch (opcao) {
+			case 1:
+				cadastrarDesenvolvedor();
+			break;
+			
+			case 2:
+				listarDesenvolvedores();
+			break;
+			
+			case 3:
+				excluirDesenvolvedor();
+			break;
+		}
+	}
+
+	private static void excluirDesenvolvedor() {
+		EntityManager em = JPAUtil.getEntityManager();
+		em.getTransaction().begin();
+		
+		System.out.print("Digite a id do desenvolvedor: ");
+		int id = entrada.nextInt();
+		
+		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
+		desenvolvedorDao.excluir(id);
 	}
 
 	private static void listarDesenvolvedores() {
@@ -27,7 +62,24 @@ public class Principal {
 	}
 
 	private static void cadastrarDesenvolvedor() {
-		Desenvolvedor desenvolvedor = new Desenvolvedor("Lucas Pereira", "Back-end", "Java, Spring, SQL", "Engenharia de Software", "Estagiário de desenvolvimento Full Stack");
+		entrada.nextLine();
+		
+		System.out.print("Digite o seu nome: ");
+		String nome = entrada.nextLine();
+		
+		System.out.print("Digite a sua área: ");
+		String area = entrada.nextLine();
+		
+		System.out.print("Digite as tecnologias que domina: ");
+		String tecnologias = entrada.nextLine();
+		
+		System.out.print("Digite a sua graduação: ");
+		String graduacao = entrada.nextLine();
+	
+		System.out.print("Digite o seu cargo: ");
+		String cargo = entrada.nextLine();
+		
+		Desenvolvedor desenvolvedor = new Desenvolvedor(nome, area, tecnologias, graduacao, cargo);
 		
 		EntityManager em = JPAUtil.getEntityManager();
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
