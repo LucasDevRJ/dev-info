@@ -27,10 +27,11 @@ public class Desenvolvedor {
 		this.cargo = cargo;
 	}
 	
+	public Desenvolvedor() {
+		
+	}
+	
 	public void setNome(String nome) {
-		if (nome.isEmpty()) {
-			throw new NullPointerException("Informação vázia!");
-		}
 		this.nome = nome;
 	}
 	
@@ -49,4 +50,12 @@ public class Desenvolvedor {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
+
+	@Override
+	public String toString() {
+		return "Desenvolvedor [id=" + id + ", nome=" + nome + ", area=" + area + ", tecnologias=" + tecnologias
+				+ ", graduacao=" + graduacao + ", cargo=" + cargo + "]";
+	}
+	
+	
 }
