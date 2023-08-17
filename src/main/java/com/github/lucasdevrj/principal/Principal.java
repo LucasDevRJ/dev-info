@@ -42,13 +42,21 @@ public class Principal {
 
 	private static void excluirDesenvolvedor() {
 		EntityManager em = JPAUtil.getEntityManager();
-		em.getTransaction().begin();
 		
 		System.out.print("Digite a id do desenvolvedor: ");
 		int id = entrada.nextInt();
 		
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		desenvolvedorDao.excluir(id);
+		
+		Desenvolvedor desenvolvedor = desenvolvedorDao.buscarPorId(id);
+		
+		desenvolvedorDao.excluir(desenvolvedor);
+		
+		em.getTransaction().begin();
+		em.getTransaction().commit();
+        em.close();
+		
+		System.out.println("Desenvolvedor excluído com sucesso!");
 	}
 
 	private static void listarDesenvolvedores() {

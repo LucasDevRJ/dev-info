@@ -23,6 +23,10 @@ public class DesenvolvedorDao {
 		this.em.remove(desenvolvedor);
 	}
 	
+	public Desenvolvedor buscarPorId(Integer id) {
+		return this.em.find(Desenvolvedor.class, id);
+	}
+	
 	public List<Desenvolvedor> listar() {
 		String jpql = "SELECT d FROM Desenvolvedor d";
 		return this.em.createQuery(jpql, Desenvolvedor.class).getResultList();
