@@ -22,6 +22,7 @@ public class Principal {
 		System.out.println("1 - Cadastrar Desenvolvedor");
 		System.out.println("2 - Listar Desenvolvedores");
 		System.out.println("3 - Excluir Desenvolvedor");
+		System.out.println("4 - Atualizar Desenvolvedor");
 		
 		System.out.print("Digite sua opção: ");
 		int opcao = entrada.nextInt();
@@ -43,6 +44,7 @@ public class Principal {
 				atualizarDesenvolvedor();
 			break;
 		}
+		exibirMenu();
 	}
 
 	private static void atualizarDesenvolvedor() {
@@ -75,6 +77,8 @@ public class Principal {
 		em.getTransaction().begin();
 		em.getTransaction().commit();
         em.close();
+        
+        System.out.println("Desenvolvedor atualizado com sucesso!");
 	}
 
 	private static void excluirDesenvolvedor() {
