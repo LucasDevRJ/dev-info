@@ -23,6 +23,10 @@ public class DesenvolvedorDao {
 		this.em.remove(desenvolvedor);
 	}
 	
+	public void atualizar(Desenvolvedor desenvolvedor) {
+		this.em.merge(desenvolvedor);
+	}
+	
 	public Desenvolvedor buscarPorId(Integer id) {
 		return this.em.find(Desenvolvedor.class, id);
 	}

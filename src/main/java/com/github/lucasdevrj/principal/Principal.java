@@ -12,6 +12,7 @@ import com.github.lucasdevrj.util.JPAUtil;
 public class Principal {
 	
 	private static Scanner entrada = new Scanner(System.in);
+	private static EntityManager em = JPAUtil.getEntityManager();
 	
 	public static void main(String[] args) {
 		exibirMenu();
@@ -20,7 +21,7 @@ public class Principal {
 	private static void exibirMenu() {
 		System.out.println("1 - Cadastrar Desenvolvedor");
 		System.out.println("2 - Listar Desenvolvedores");
-		System.out.println("3 - Excluir Todos Desenvolvedores");
+		System.out.println("3 - Excluir Desenvolvedor");
 		
 		System.out.print("Digite sua opção: ");
 		int opcao = entrada.nextInt();
@@ -37,12 +38,46 @@ public class Principal {
 			case 3:
 				excluirDesenvolvedor();
 			break;
+			
+			case 4:
+				atualizarDesenvolvedor();
+			break;
 		}
 	}
 
-	private static void excluirDesenvolvedor() {
-		EntityManager em = JPAUtil.getEntityManager();
+	private static void atualizarDesenvolvedor() {
+		System.out.print("Digite a id do desenvolvedor: ");
+		int id = entrada.nextInt();
 		
+		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
+		
+		Desenvolvedor desenvolvedor = desenvolvedorDao.buscarPorId(id);
+		
+		entrada.nextLine();
+		
+		System.out.print("Digite o seu nome: ");
+		desenvolvedor.setNome(entrada.nextLine());
+		
+		System.out.print("Digite a sua área: ");
+		desenvolvedor.setArea(entrada.nextLine());
+		
+		System.out.print("Digite as tecnologias que domina: ");
+		desenvolvedor.setTecnologias(entrada.nextLine());
+		
+		System.out.print("Digite a sua graduação: ");
+		desenvolvedor.setGraduacao(entrada.nextLine());
+	
+		System.out.print("Digite o seu cargo: ");
+		desenvolvedor.setCargo(entrada.nextLine());
+		
+		desenvolvedorDao.atualizar(desenvolvedor);
+		
+		em.getTransaction().begin();
+		em.getTransaction().commit();
+        em.close();
+	}
+
+	private static void excluirDesenvolvedor() {
 		System.out.print("Digite a id do desenvolvedor: ");
 		int id = entrada.nextInt();
 		
@@ -60,7 +95,6 @@ public class Principal {
 	}
 
 	private static void listarDesenvolvedores() {
-		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
 		System.out.println("Busca todos os produtos");
