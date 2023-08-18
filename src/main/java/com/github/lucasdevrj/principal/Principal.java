@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 
+import com.github.lucasdevrj.dao.CargoDao;
 import com.github.lucasdevrj.dao.DesenvolvedorDao;
+import com.github.lucasdevrj.modelos.Cargo;
 import com.github.lucasdevrj.modelos.Desenvolvedor;
 import com.github.lucasdevrj.util.JPAUtil;
 
@@ -23,6 +25,7 @@ public class Principal {
 		System.out.println("2 - Listar Desenvolvedores");
 		System.out.println("3 - Excluir Desenvolvedor");
 		System.out.println("4 - Atualizar Desenvolvedor");
+		System.out.println("5 - Sair");
 		
 		System.out.print("Digite sua opção: ");
 		int opcao = entrada.nextInt();
@@ -43,8 +46,11 @@ public class Principal {
 			case 4:
 				atualizarDesenvolvedor();
 			break;
+			
+			case 5:
+				System.out.println("Programa finalizado.");
+			break;
 		}
-		exibirMenu();
 	}
 
 	private static void atualizarDesenvolvedor() {
@@ -52,8 +58,10 @@ public class Principal {
 		int id = entrada.nextInt();
 		
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		
 		Desenvolvedor desenvolvedor = desenvolvedorDao.buscarPorId(id);
+		
+		CargoDao cargoDao = new CargoDao(em);
+		Cargo cargo = cargoDao.buscarPorId(id);
 		
 		entrada.nextLine();
 		
@@ -70,8 +78,9 @@ public class Principal {
 		desenvolvedor.setGraduacao(entrada.nextLine());
 	
 		System.out.print("Digite o seu cargo: ");
-		desenvolvedor.setCargo(entrada.nextLine());
+		cargo.setNome(entrada.nextLine());
 		
+		cargoDao.atualizar(cargo);
 		desenvolvedorDao.atualizar(desenvolvedor);
 		
 		em.getTransaction().begin();
@@ -79,6 +88,7 @@ public class Principal {
         em.close();
         
         System.out.println("Desenvolvedor atualizado com sucesso!");
+        exibirMenu();
 	}
 
 	private static void excluirDesenvolvedor() {
@@ -96,15 +106,16 @@ public class Principal {
         em.close();
 		
 		System.out.println("Desenvolvedor excluído com sucesso!");
+		exibirMenu();
 	}
 
 	private static void listarDesenvolvedores() {
 		em.getTransaction().begin();
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		System.out.println("Busca todos os produtos");
+		
 		List<Desenvolvedor> desenvolvedores = desenvolvedorDao.listar();
 		desenvolvedores.forEach(d -> System.out.println(d));
-		System.out.println();
+		exibirMenu();
 	}
 
 	private static void cadastrarDesenvolvedor() {
@@ -123,11 +134,14 @@ public class Principal {
 		String graduacao = entrada.nextLine();
 	
 		System.out.print("Digite o seu cargo: ");
-		String cargo = entrada.nextLine();
+		String nomeCargo = entrada.nextLine();
+		
+		Cargo cargo = new Cargo(nomeCargo);
+		CargoDao cargoDao = new CargoDao(em);
+		cargoDao.cadastrar(cargo);
 		
 		Desenvolvedor desenvolvedor = new Desenvolvedor(nome, area, tecnologias, graduacao, cargo);
 		
-		EntityManager em = JPAUtil.getEntityManager();
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
 		
 		desenvolvedorDao.cadastrar(desenvolvedor);
@@ -137,5 +151,6 @@ public class Principal {
         em.close();
         
         System.out.println("Desenvolvedor cadastrado com sucesso!");
+        exibirMenu();
 	}
 }

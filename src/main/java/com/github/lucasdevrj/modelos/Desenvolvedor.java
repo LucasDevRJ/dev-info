@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +19,11 @@ public class Desenvolvedor {
 	private String area;
 	private String tecnologias;
 	private String graduacao;
-	private String cargo;
 	
-	public Desenvolvedor(String nome, String area, String tecnologias, String graduacao, String cargo) {
+	@OneToOne
+	private Cargo cargo;
+	
+	public Desenvolvedor(String nome, String area, String tecnologias, String graduacao, Cargo cargo) {
 		this.nome = nome;
 		this.area = area;
 		this.tecnologias = tecnologias;
@@ -47,14 +51,14 @@ public class Desenvolvedor {
 		this.graduacao = graduacao;
 	}
 	
-	public void setCargo(String cargo) {
+	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
 
 	@Override
 	public String toString() {
 		return "Desenvolvedor [id=" + id + ", nome=" + nome + ", area=" + area + ", tecnologias=" + tecnologias
-				+ ", graduacao=" + graduacao + ", cargo=" + cargo + "]";
+				+ ", graduacao=" + graduacao + ", cargo=" + cargo.getNome() + "]";
 	}
 	
 	
