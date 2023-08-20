@@ -9,6 +9,7 @@ import com.github.lucasdevrj.dao.CargoDao;
 import com.github.lucasdevrj.dao.DesenvolvedorDao;
 import com.github.lucasdevrj.modelos.Cargo;
 import com.github.lucasdevrj.modelos.Desenvolvedor;
+import com.github.lucasdevrj.modelos.Tecnologia;
 import com.github.lucasdevrj.util.JPAUtil;
 
 public class Principal {
@@ -71,6 +72,13 @@ public class Principal {
 		System.out.print("Digite a sua área: ");
 		desenvolvedor.setArea(entrada.nextLine());
 		
+		do {
+			System.out.print("Digite uma tecnologia que domina: ");
+			List<Tecnologia> tecnologias = entrada.nextLine();
+			
+			
+		}
+	
 		System.out.print("Digite as tecnologias que domina: ");
 		desenvolvedor.setTecnologias(entrada.nextLine());
 		

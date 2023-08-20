@@ -28,7 +28,7 @@ public class Desenvolvedor {
 	@OneToOne
 	private Cargo cargo;
 	
-	public Desenvolvedor(String nome, String area, String tecnologias, String graduacao, Cargo cargo) {
+	public Desenvolvedor(String nome, String area, List<Tecnologia> tecnologias, String graduacao, Cargo cargo) {
 		this.nome = nome;
 		this.area = area;
 		this.tecnologias = tecnologias;
@@ -48,7 +48,7 @@ public class Desenvolvedor {
 		this.area = area;
 	}
 	
-	public void setTecnologias(String tecnologias) {
+	public void setTecnologias(List<Tecnologia> tecnologias) {
 		this.tecnologias = tecnologias;
 	}
 	
