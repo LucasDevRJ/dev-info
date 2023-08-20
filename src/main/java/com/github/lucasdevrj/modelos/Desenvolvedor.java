@@ -1,5 +1,8 @@
 package com.github.lucasdevrj.modelos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +20,9 @@ public class Desenvolvedor {
 	private Integer id; 
 	private String nome;
 	private String area;
-	private String tecnologias;
+	
+	@OneToMany
+	private List<Tecnologia> tecnologias = new ArrayList<>();
 	private String graduacao;
 	
 	@OneToOne
