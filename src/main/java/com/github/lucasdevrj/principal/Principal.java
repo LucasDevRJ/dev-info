@@ -23,7 +23,7 @@ public class Principal {
 		exibirMenu();
 	}
 
-	private static void exibirMenu() {
+	public static void exibirMenu() {
 		System.out.println("1 - Cadastrar Desenvolvedor");
 		System.out.println("2 - Listar Desenvolvedores");
 		System.out.println("3 - Excluir Desenvolvedor");
@@ -35,7 +35,8 @@ public class Principal {
 		
 		switch (opcao) {
 			case 1:
-				cadastrarDesenvolvedor();
+				CadastroDesenvolvedor cadastroDesenvolvedor = new CadastroDesenvolvedor();
+				cadastroDesenvolvedor.cadastrar();
 			break;
 			
 			case 2:
@@ -134,56 +135,5 @@ public class Principal {
 		List<Desenvolvedor> desenvolvedores = desenvolvedorDao.listar();
 		desenvolvedores.forEach(d -> System.out.println(d));
 		exibirMenu();
-	}
-
-	private static void cadastrarDesenvolvedor() {
-		entrada.nextLine();
-		
-		System.out.print("Digite o seu nome: ");
-		String nome = entrada.nextLine();
-		
-		System.out.print("Digite a sua área: ");
-		String area = entrada.nextLine();
-		
-		List<Tecnologia> tecnologias = new ArrayList<>();
-		int opcao = 0;
-		do {
-			System.out.print("Digite uma tecnologia que domina: ");
-			String nomeTecnologia = entrada.nextLine();
-			
-			Tecnologia tecnologia = new Tecnologia(nomeTecnologia);
-			tecnologias.add(tecnologia);
-			
-			TecnologiaDao tecnologiaDao = new TecnologiaDao(em);
-			tecnologiaDao.cadastrar(tecnologia);
-			
-			System.out.print("Deseja cadastrar outra tecnologia?\n1 - Sim\n2 - Não");
-			opcao = entrada.nextInt();
-			
-			entrada.nextLine();
-		} while (opcao != 2);
-	
-		System.out.print("Digite a sua graduação: ");
-		String graduacao = entrada.nextLine();
-	
-		System.out.print("Digite o seu cargo: ");
-		String nomeCargo = entrada.nextLine();
-		
-		Cargo cargo = new Cargo(nomeCargo);
-		CargoDao cargoDao = new CargoDao(em);
-		cargoDao.cadastrar(cargo);
-		
-		Desenvolvedor desenvolvedor = new Desenvolvedor(nome, area, tecnologias, graduacao, cargo);
-		
-		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		
-		desenvolvedorDao.cadastrar(desenvolvedor);
-		
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-        em.close();
-        
-        System.out.println("Desenvolvedor cadastrado com sucesso!");
-        exibirMenu();
 	}
 }
