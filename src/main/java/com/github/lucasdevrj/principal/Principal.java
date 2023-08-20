@@ -1,5 +1,6 @@
 package com.github.lucasdevrj.principal;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 
 import com.github.lucasdevrj.dao.CargoDao;
 import com.github.lucasdevrj.dao.DesenvolvedorDao;
+import com.github.lucasdevrj.dao.TecnologiaDao;
 import com.github.lucasdevrj.modelos.Cargo;
 import com.github.lucasdevrj.modelos.Desenvolvedor;
 import com.github.lucasdevrj.modelos.Tecnologia;
@@ -72,15 +74,23 @@ public class Principal {
 		System.out.print("Digite a sua área: ");
 		desenvolvedor.setArea(entrada.nextLine());
 		
+		List<Tecnologia> tecnologias = new ArrayList<>();
+		int opcao = 0;
 		do {
 			System.out.print("Digite uma tecnologia que domina: ");
-			List<Tecnologia> tecnologias = entrada.nextLine();
+			String nome = entrada.nextLine();
 			
+			Tecnologia tecnologia = new Tecnologia(nome);
+			tecnologias.add(tecnologia);
 			
-		}
+			TecnologiaDao tecnologiaDao = new TecnologiaDao(em);
+			tecnologiaDao.cadastrar(tecnologia);
+			
+			System.out.print("Deseja cadastrar outra tecnologia?\n1 - Sim\n2 - Não");
+			opcao = entrada.nextInt();
+		} while (opcao != 2);
 	
-		System.out.print("Digite as tecnologias que domina: ");
-		desenvolvedor.setTecnologias(entrada.nextLine());
+		desenvolvedor.setTecnologias(tecnologias);
 		
 		System.out.print("Digite a sua graduação: ");
 		desenvolvedor.setGraduacao(entrada.nextLine());
@@ -135,9 +145,24 @@ public class Principal {
 		System.out.print("Digite a sua área: ");
 		String area = entrada.nextLine();
 		
-		System.out.print("Digite as tecnologias que domina: ");
-		String tecnologias = entrada.nextLine();
-		
+		List<Tecnologia> tecnologias = new ArrayList<>();
+		int opcao = 0;
+		do {
+			System.out.print("Digite uma tecnologia que domina: ");
+			String nomeTecnologia = entrada.nextLine();
+			
+			Tecnologia tecnologia = new Tecnologia(nomeTecnologia);
+			tecnologias.add(tecnologia);
+			
+			TecnologiaDao tecnologiaDao = new TecnologiaDao(em);
+			tecnologiaDao.cadastrar(tecnologia);
+			
+			System.out.print("Deseja cadastrar outra tecnologia?\n1 - Sim\n2 - Não");
+			opcao = entrada.nextInt();
+			
+			entrada.nextLine();
+		} while (opcao != 2);
+	
 		System.out.print("Digite a sua graduação: ");
 		String graduacao = entrada.nextLine();
 	
