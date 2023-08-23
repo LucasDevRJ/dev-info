@@ -31,6 +31,7 @@ public class Principal {
 		System.out.println("5 - Listar Tecnologias");
 		System.out.println("6 - Listar Cargos");
 		System.out.println("7 - Listar Graduações");
+		System.out.println("8 - Listar Áreas");
 		
 		System.out.print("Digite sua opção: ");
 		int opcao = entrada.nextInt();
@@ -64,6 +65,10 @@ public class Principal {
 			
 			case 7:
 				listarGraduacoes();
+			break;
+			
+			case 8:
+				listarAreas();
 			break;
 		}
 	}
@@ -169,6 +174,15 @@ public class Principal {
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
 		
 		List<String> desenvolvedores = desenvolvedorDao.listarGraduacoes();
+		desenvolvedores.forEach(d -> System.out.print(d + " | "));
+		System.out.println();
+		exibirMenu();
+	}
+	
+	private static void listarAreas() {
+		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
+		
+		List<String> desenvolvedores = desenvolvedorDao.listarAreas();
 		desenvolvedores.forEach(d -> System.out.print(d + " | "));
 		System.out.println();
 		exibirMenu();

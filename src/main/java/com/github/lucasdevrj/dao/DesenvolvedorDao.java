@@ -40,4 +40,9 @@ public class DesenvolvedorDao {
 		String jpql = "SELECT d.graduacao FROM Desenvolvedor d";
 		return this.em.createQuery(jpql, String.class).getResultList();
 	}
+	
+	public List<String> listarAreas() {
+		String jpql = "SELECT d.area FROM Desenvolvedor d";
+		return this.em.createQuery(jpql, String.class).getResultList();
+	}
 }
