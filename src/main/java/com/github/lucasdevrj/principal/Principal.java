@@ -24,15 +24,17 @@ public class Principal {
 	}
 
 	public static void exibirMenu() {
-		System.out.println("1 - Cadastrar Desenvolvedor");
+		System.out.println("\n1 - Cadastrar Desenvolvedor");
 		System.out.println("2 - Listar Desenvolvedores");
 		System.out.println("3 - Excluir Desenvolvedor");
 		System.out.println("4 - Atualizar Desenvolvedor");
 		System.out.println("5 - Listar Tecnologias");
 		System.out.println("6 - Listar Cargos");
+		System.out.println("7 - Listar Graduações");
 		
 		System.out.print("Digite sua opção: ");
 		int opcao = entrada.nextInt();
+		System.out.println();
 		
 		switch (opcao) {
 			case 1:
@@ -58,6 +60,10 @@ public class Principal {
 			
 			case 6:
 				listarCargos();
+			break;
+			
+			case 7:
+				listarGraduacoes();
 			break;
 		}
 	}
@@ -134,7 +140,6 @@ public class Principal {
 	}
 
 	private static void listarDesenvolvedores() {
-		em.getTransaction().begin();
 		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
 		
 		List<Desenvolvedor> desenvolvedores = desenvolvedorDao.listar();
@@ -143,7 +148,6 @@ public class Principal {
 	}
 	
 	private static void listarTecnologias() {
-		em.getTransaction().begin();
 		TecnologiaDao tecnologiaDao = new TecnologiaDao(em);
 		
 		List<Tecnologia> tecnologias = tecnologiaDao.listar();
@@ -152,13 +156,20 @@ public class Principal {
 		exibirMenu();
 	}
 	
-	
 	private static void listarCargos() {
-		em.getTransaction().begin();
 		CargoDao cargoDao = new CargoDao(em);
 		
 		List<Cargo> cargos = cargoDao.listar();
 		cargos.forEach(c -> System.out.print(c + " | "));
+		System.out.println();
+		exibirMenu();
+	}
+	
+	private static void listarGraduacoes() {
+		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
+		
+		List<String> desenvolvedores = desenvolvedorDao.listarGraduacoes();
+		desenvolvedores.forEach(d -> System.out.print(d + " | "));
 		System.out.println();
 		exibirMenu();
 	}
