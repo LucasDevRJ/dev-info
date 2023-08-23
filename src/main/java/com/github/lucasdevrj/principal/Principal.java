@@ -1,6 +1,5 @@
 package com.github.lucasdevrj.principal;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,7 +51,8 @@ public class Principal {
 			break;
 			
 			case 4:
-				atualizarDesenvolvedor();
+				AtualizarDesenvolvedor atualizarDesenvolvedor = new AtualizarDesenvolvedor();
+				atualizarDesenvolvedor.atualizar();
 			break;
 			
 			case 5:
@@ -71,59 +71,6 @@ public class Principal {
 				listarAreas();
 			break;
 		}
-	}
-
-	private static void atualizarDesenvolvedor() {
-		System.out.print("Digite a id do desenvolvedor: ");
-		int id = entrada.nextInt();
-		
-		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		Desenvolvedor desenvolvedor = desenvolvedorDao.buscarPorId(id);
-		
-		CargoDao cargoDao = new CargoDao(em);
-		Cargo cargo = cargoDao.buscarPorId(id);
-		
-		entrada.nextLine();
-		
-		System.out.print("Digite o seu nome: ");
-		desenvolvedor.setNome(entrada.nextLine());
-		
-		System.out.print("Digite a sua área: ");
-		desenvolvedor.setArea(entrada.nextLine());
-		
-		List<Tecnologia> tecnologias = new ArrayList<>();
-		int opcao = 0;
-		do {
-			System.out.print("Digite uma tecnologia que domina: ");
-			String nome = entrada.nextLine();
-			
-			Tecnologia tecnologia = new Tecnologia(nome);
-			tecnologias.add(tecnologia);
-			
-			TecnologiaDao tecnologiaDao = new TecnologiaDao(em);
-			tecnologiaDao.cadastrar(tecnologia);
-			
-			System.out.print("Deseja cadastrar outra tecnologia?\n1 - Sim\n2 - Não");
-			opcao = entrada.nextInt();
-		} while (opcao != 2);
-	
-		desenvolvedor.setTecnologias(tecnologias);
-		
-		System.out.print("Digite a sua graduação: ");
-		desenvolvedor.setGraduacao(entrada.nextLine());
-	
-		System.out.print("Digite o seu cargo: ");
-		cargo.setNome(entrada.nextLine());
-		
-		cargoDao.atualizar(cargo);
-		desenvolvedorDao.atualizar(desenvolvedor);
-		
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-        em.close();
-        
-        System.out.println("Desenvolvedor atualizado com sucesso!");
-        exibirMenu();
 	}
 
 	private static void excluirDesenvolvedor() {
