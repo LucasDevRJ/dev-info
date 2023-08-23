@@ -1,5 +1,7 @@
 package com.github.lucasdevrj.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import com.github.lucasdevrj.modelos.Cargo;
@@ -23,5 +25,10 @@ private EntityManager em;
 	
 	public Cargo buscarPorId(Integer id) {
 		return this.em.find(Cargo.class, id);
+	}
+
+	public List<Cargo> listar() {
+		String jpql = "SELECT c FROM Cargo c";
+		return this.em.createQuery(jpql, Cargo.class).getResultList();
 	}
 }

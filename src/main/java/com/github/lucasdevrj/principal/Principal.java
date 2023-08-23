@@ -29,7 +29,7 @@ public class Principal {
 		System.out.println("3 - Excluir Desenvolvedor");
 		System.out.println("4 - Atualizar Desenvolvedor");
 		System.out.println("5 - Listar Tecnologias");
-		System.out.println("5 - Sair");
+		System.out.println("6 - Listar Cargos");
 		
 		System.out.print("Digite sua opção: ");
 		int opcao = entrada.nextInt();
@@ -54,6 +54,10 @@ public class Principal {
 			
 			case 5:
 				listarTecnologias();
+			break;
+			
+			case 6:
+				listarCargos();
 			break;
 		}
 	}
@@ -144,6 +148,17 @@ public class Principal {
 		
 		List<Tecnologia> tecnologias = tecnologiaDao.listar();
 		tecnologias.forEach(t -> System.out.print(t + " | "));
+		System.out.println();
+		exibirMenu();
+	}
+	
+	
+	private static void listarCargos() {
+		em.getTransaction().begin();
+		CargoDao cargoDao = new CargoDao(em);
+		
+		List<Cargo> cargos = cargoDao.listar();
+		cargos.forEach(c -> System.out.print(c + " | "));
 		System.out.println();
 		exibirMenu();
 	}

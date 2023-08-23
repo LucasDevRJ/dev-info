@@ -30,4 +30,9 @@ public class Cargo {
 	public String getNome() {
 		return nome;
 	}
+	
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 }
