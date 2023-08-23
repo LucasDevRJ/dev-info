@@ -1,4 +1,4 @@
-package com.github.lucasdevrj.principal;
+package com.github.lucasdevrj.metodos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import com.github.lucasdevrj.dao.TecnologiaDao;
 import com.github.lucasdevrj.modelos.Cargo;
 import com.github.lucasdevrj.modelos.Desenvolvedor;
 import com.github.lucasdevrj.modelos.Tecnologia;
+import com.github.lucasdevrj.principal.Principal;
 import com.github.lucasdevrj.util.JPAUtil;
 
 public class CadastroDesenvolvedor {

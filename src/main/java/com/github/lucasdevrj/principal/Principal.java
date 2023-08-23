@@ -8,6 +8,9 @@ import javax.persistence.EntityManager;
 import com.github.lucasdevrj.dao.CargoDao;
 import com.github.lucasdevrj.dao.DesenvolvedorDao;
 import com.github.lucasdevrj.dao.TecnologiaDao;
+import com.github.lucasdevrj.metodos.AtualizarDesenvolvedor;
+import com.github.lucasdevrj.metodos.CadastroDesenvolvedor;
+import com.github.lucasdevrj.metodos.Listagem;
 import com.github.lucasdevrj.modelos.Cargo;
 import com.github.lucasdevrj.modelos.Desenvolvedor;
 import com.github.lucasdevrj.modelos.Tecnologia;
@@ -35,7 +38,7 @@ public class Principal {
 		System.out.print("Digite sua opção: ");
 		int opcao = entrada.nextInt();
 		System.out.println();
-		
+		Listagem listagem = new Listagem();
 		switch (opcao) {
 			case 1:
 				CadastroDesenvolvedor cadastroDesenvolvedor = new CadastroDesenvolvedor();
@@ -43,7 +46,7 @@ public class Principal {
 			break;
 			
 			case 2:
-				listarDesenvolvedores();
+				listagem.listarDesenvolvedores();
 			break;
 			
 			case 3:
@@ -88,14 +91,6 @@ public class Principal {
         em.close();
 		
 		System.out.println("Desenvolvedor excluído com sucesso!");
-		exibirMenu();
-	}
-
-	private static void listarDesenvolvedores() {
-		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		
-		List<Desenvolvedor> desenvolvedores = desenvolvedorDao.listar();
-		desenvolvedores.forEach(d -> System.out.println(d));
 		exibirMenu();
 	}
 	
