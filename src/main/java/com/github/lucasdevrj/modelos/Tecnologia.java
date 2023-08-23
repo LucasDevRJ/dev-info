@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +16,9 @@ public class Tecnologia {
 	private Integer id;
 	private String nome;
 	
+	@ManyToOne
+	private Desenvolvedor desenvolvedor;
+	
 	public Tecnologia(String nome) {
 		this.nome = nome;
 	}
@@ -25,5 +29,10 @@ public class Tecnologia {
 	
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	@Override
+	public String toString() {
+		return this.nome;
 	}
 }

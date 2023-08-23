@@ -28,6 +28,7 @@ public class Principal {
 		System.out.println("2 - Listar Desenvolvedores");
 		System.out.println("3 - Excluir Desenvolvedor");
 		System.out.println("4 - Atualizar Desenvolvedor");
+		System.out.println("5 - Listar Tecnologias");
 		System.out.println("5 - Sair");
 		
 		System.out.print("Digite sua opção: ");
@@ -52,7 +53,7 @@ public class Principal {
 			break;
 			
 			case 5:
-				System.out.println("Programa finalizado.");
+				listarTecnologias();
 			break;
 		}
 	}
@@ -134,6 +135,16 @@ public class Principal {
 		
 		List<Desenvolvedor> desenvolvedores = desenvolvedorDao.listar();
 		desenvolvedores.forEach(d -> System.out.println(d));
+		exibirMenu();
+	}
+	
+	private static void listarTecnologias() {
+		em.getTransaction().begin();
+		TecnologiaDao tecnologiaDao = new TecnologiaDao(em);
+		
+		List<Tecnologia> tecnologias = tecnologiaDao.listar();
+		tecnologias.forEach(t -> System.out.print(t + " | "));
+		System.out.println();
 		exibirMenu();
 	}
 }
