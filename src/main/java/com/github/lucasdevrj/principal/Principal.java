@@ -10,6 +10,7 @@ import com.github.lucasdevrj.dao.DesenvolvedorDao;
 import com.github.lucasdevrj.dao.TecnologiaDao;
 import com.github.lucasdevrj.metodos.AtualizarDesenvolvedor;
 import com.github.lucasdevrj.metodos.CadastroDesenvolvedor;
+import com.github.lucasdevrj.metodos.ExclusaoDesenvolvedor;
 import com.github.lucasdevrj.metodos.Listagem;
 import com.github.lucasdevrj.modelos.Cargo;
 import com.github.lucasdevrj.modelos.Desenvolvedor;
@@ -50,7 +51,8 @@ public class Principal {
 			break;
 			
 			case 3:
-				excluirDesenvolvedor();
+				ExclusaoDesenvolvedor excluirDesenvolvedor = new ExclusaoDesenvolvedor();
+				excluirDesenvolvedor.excluir();
 			break;
 			
 			case 4:
@@ -74,24 +76,6 @@ public class Principal {
 				listarAreas();
 			break;
 		}
-	}
-
-	private static void excluirDesenvolvedor() {
-		System.out.print("Digite a id do desenvolvedor: ");
-		int id = entrada.nextInt();
-		
-		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		
-		Desenvolvedor desenvolvedor = desenvolvedorDao.buscarPorId(id);
-		
-		desenvolvedorDao.excluir(desenvolvedor);
-		
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-        em.close();
-		
-		System.out.println("Desenvolvedor excluído com sucesso!");
-		exibirMenu();
 	}
 	
 	private static void listarTecnologias() {
