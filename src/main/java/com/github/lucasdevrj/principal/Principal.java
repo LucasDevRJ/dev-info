@@ -1,26 +1,14 @@
 package com.github.lucasdevrj.principal;
 
-import java.util.List;
 import java.util.Scanner;
-
-import javax.persistence.EntityManager;
-
-import com.github.lucasdevrj.dao.CargoDao;
-import com.github.lucasdevrj.dao.DesenvolvedorDao;
-import com.github.lucasdevrj.dao.TecnologiaDao;
 import com.github.lucasdevrj.metodos.AtualizarDesenvolvedor;
 import com.github.lucasdevrj.metodos.CadastroDesenvolvedor;
 import com.github.lucasdevrj.metodos.ExclusaoDesenvolvedor;
 import com.github.lucasdevrj.metodos.Listagem;
-import com.github.lucasdevrj.modelos.Cargo;
-import com.github.lucasdevrj.modelos.Desenvolvedor;
-import com.github.lucasdevrj.modelos.Tecnologia;
-import com.github.lucasdevrj.util.JPAUtil;
 
 public class Principal {
 	
 	private static Scanner entrada = new Scanner(System.in);
-	private static EntityManager em = JPAUtil.getEntityManager();
 	
 	public static void main(String[] args) {
 		exibirMenu();
@@ -61,56 +49,20 @@ public class Principal {
 			break;
 			
 			case 5:
-				listarTecnologias();
+				listagem.listarTecnologias();
 			break;
 			
 			case 6:
-				listarCargos();
+				listagem.listarCargos();
 			break;
 			
 			case 7:
-				listarGraduacoes();
+				listagem.listarGraduacoes();
 			break;
 			
 			case 8:
-				listarAreas();
+				listagem.listarAreas();
 			break;
 		}
-	}
-	
-	private static void listarTecnologias() {
-		TecnologiaDao tecnologiaDao = new TecnologiaDao(em);
-		
-		List<Tecnologia> tecnologias = tecnologiaDao.listar();
-		tecnologias.forEach(t -> System.out.print(t + " | "));
-		System.out.println();
-		exibirMenu();
-	}
-	
-	private static void listarCargos() {
-		CargoDao cargoDao = new CargoDao(em);
-		
-		List<Cargo> cargos = cargoDao.listar();
-		cargos.forEach(c -> System.out.print(c + " | "));
-		System.out.println();
-		exibirMenu();
-	}
-	
-	private static void listarGraduacoes() {
-		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		
-		List<String> desenvolvedores = desenvolvedorDao.listarGraduacoes();
-		desenvolvedores.forEach(d -> System.out.print(d + " | "));
-		System.out.println();
-		exibirMenu();
-	}
-	
-	private static void listarAreas() {
-		DesenvolvedorDao desenvolvedorDao = new DesenvolvedorDao(em);
-		
-		List<String> desenvolvedores = desenvolvedorDao.listarAreas();
-		desenvolvedores.forEach(d -> System.out.print(d + " | "));
-		System.out.println();
-		exibirMenu();
 	}
 }
